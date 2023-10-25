@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<body>
+    <div style="background-color:#005a9e; padding: 20px; text-align: center; color: whitesmoke;">
+    <h1>Order Payment</h1>
+    </div>
+
+    <div style="max-width: 400px; margin: 0 auto; padding: 60px; background-color: #fff; box-shadow: 0px 0px 100px 0px rgba(0,0,0,0.1);">
+    <form id="upi_payment_form">
+        <label for="Order No.">Order No.:</label>
+        <input type="text" id="note" name="Order No." required><br><br>
+
+        <label for="upi_id">UPI ID.:</label>
+        <input type="text" id="upi_id" name="upi_id" required><br><br>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required><br><br>
+        <div style="text-align: left;">
+            <button type="submit">Pay</button>
+        </div>
+        
+    </form>
+
+    <script>
+        // Handle form submission
+        document.getElementById('upi_payment_form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Collect form data
+            var upi_id = document.getElementById('upi_id').value;
+            var amount = document.getElementById('amount').value;
+            var note = document.getElementById('note').value;
+
+            // Construct upi uri
+            var upi_uri = 'upi://pay?pa=' + upi_id + '&pn=YOUR_BUSINESS_NAME&tn=' + encodeURIComponent(note) + '&am=' + amount + '&cu=INR';
+
+            // Redirect user to the upi uri
+            window.location.href = upi_uri;
+        });
+    </script>
+</body>
+</html>
